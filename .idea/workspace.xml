@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bdce2dde-7ec9-4032-a4d4-0c4d0886d728" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/transfusion/templates/transfusion/create_account.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/transfusion/templates/transfusion/for_students.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/transfusion/templates/transfusion/for_teachers.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/transfusion/templates/transfusion/index.html" afterPath="$PROJECT_DIR$/transfusion/templates/transfusion/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/transfusion/templates/transfusion/index_header.html" afterPath="$PROJECT_DIR$/transfusion/templates/transfusion/index_header.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/transfusion/templates/transfusion/logged_in_index.html" afterPath="$PROJECT_DIR$/transfusion/templates/transfusion/logged_in_index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/transfusion/urls.py" afterPath="$PROJECT_DIR$/transfusion/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/transfusion/views.py" afterPath="$PROJECT_DIR$/transfusion/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/transfusion/templates/transfusion/for_students.html" afterPath="$PROJECT_DIR$/transfusion/templates/transfusion/for_students.html" />
     </list>
     <ignored path="transfusion_v2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -73,8 +65,8 @@
       <file leaf-file-name="for_students.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/transfusion/templates/transfusion/for_students.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.47058824" vertical-offset="0" max-vertical-offset="510">
-              <caret line="16" column="104" selection-start-line="16" selection-start-column="104" selection-end-line="16" selection-end-column="104" />
+            <state vertical-scroll-proportion="0.64705884" vertical-offset="0" max-vertical-offset="510">
+              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -1063,8 +1055,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/transfusion/templates/transfusion/for_students.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47058824" vertical-offset="0" max-vertical-offset="510">
-          <caret line="16" column="104" selection-start-line="16" selection-start-column="104" selection-end-line="16" selection-end-column="104" />
+        <state vertical-scroll-proportion="0.64705884" vertical-offset="0" max-vertical-offset="510">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding />
         </state>
       </provider>
