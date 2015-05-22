@@ -5,7 +5,8 @@ from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db.models.query_utils import Q
-from django.http.response import HttpResponseRedirect, HttpResponse
+from django.db.utils import IntegrityError
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
@@ -78,7 +79,7 @@ def sign_in(request):
         else:
             messages.error(request, "Your user account has been deactivated.")
     else:
-        messages.error(request, "Your user account does not exist.")
+        messages.error(request, "Account not found, perhaps you entered your password incorrectly?")
         
     return HttpResponseRedirect(reverse("transfusion:index"))
 
@@ -453,3 +454,29 @@ def delete_things(request):
         messages.success(request, "Course deleted.")
 
         return HttpResponseRedirect(reverse('transfusion:index'))
+
+
+def create_account(request):
+
+    if request.method == "POST":
+        username = request.POST.get('username')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        password_repeat = request.POST.get('retype_password')
+
+        if password != password_repeat:
+            messages.error(request, "Your passwords do not match. Please try again.")
+            return HttpResponseRedirect(reverse('transfusion:create_account'))
+
+        try:
+            User.objects.create_user(username, email, password, first_name=first_name, last_name=last_name)
+        except IntegrityError:
+            messages.error(request, "That username is taken, please try another.")
+            return HttpResponseRedirect(reverse('transfusion:create_account'))
+
+        messages.success(request, "Account created. You may now log in.")
+        return HttpResponseRedirect(reverse('transfusion:index'))
+
+    return render(request, "transfusion/create_account.html")

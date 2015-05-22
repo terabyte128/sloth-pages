@@ -1,14 +1,19 @@
+from django.views.generic.base import TemplateView
+
 __author__ = 'Sam'
 
 from django.conf.urls import patterns, url
 
 from transfusion import views
 
+
 urlpatterns = patterns(
     '',
 
     url(r'^$', views.index, name='index'),
     url(r'^search/$', views.search, name='search'),
+    url(r'^create/$', views.create_account, name='create_account'),
+
     url(r'^t/(?P<teacher>[^/]+)/$', views.teacher_profile, name='teacher_profile'),
     url(r'^t/(?P<teacher>[^/]+)/c/(?P<course>[0-9]+)/$', views.course, name='course'),
     url(r'^sign_in/$', views.sign_in, name="sign_in"),
@@ -34,4 +39,7 @@ urlpatterns = patterns(
 
     url(r'^delete/$', views.delete_things, name='delete_things'),
 
-    )
+    url('^students/$', TemplateView.as_view(template_name='transfusion/for_students.html'), name="for_students"),
+    url('^teachers/$', TemplateView.as_view(template_name='transfusion/for_teachers.html'), name="for_teachers")
+)
+
