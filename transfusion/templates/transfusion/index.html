@@ -1,0 +1,56 @@
+{% extends 'transfusion/base.html' %}
+{% block title %}Transfusion{% endblock %}
+
+{% block nav %}
+        {% include 'transfusion/index_header.html' %}
+{% endblock %}
+
+{% block main_content %}
+        <div class="col-md-12">
+            <h1>Welcome to Transfusion</h1>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Students</h3>
+                </div>
+                <div class="panel-body">
+                    <p>Find Your Teachers</p>
+                    <form role="form" action="{% url 'transfusion:search' %}" method="get">
+                        <div class="form-group">
+                            <label class="control-label" for="term">Username or Last Name</label>
+                            <input type="text" class="form-control" name="term">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-default">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Teachers</h3>
+                </div>
+                <div class="panel-body">
+                    <p>Sign In</p>
+                    <form role="form" action="{% url 'transfusion:sign_in' %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label class="control-label" for="username">Username</label>
+                            <input type="text" class="form-control" name="username" required='true'>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="password">Password</label>
+                            <input type="password" class="form-control" name="password" required="true">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-default">Login</button>
+                        </div>
+                        <p>Not registered? <a href="#">Learn more.</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+{% endblock %}

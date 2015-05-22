@@ -1,0 +1,57 @@
+{% extends 'transfusion/base.html' %}
+{% block title %}{{ user.get_full_name }}{% endblock %}
+
+{% block nav %}
+    {% include 'transfusion/logged_in_header.html' %}
+{% endblock %}
+
+{% block main_content %}
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li class="active">{{ user.get_full_name }}</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <form role="form" method="post">
+                {% csrf_token %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">My Home Page &nbsp;<button class="btn btn-success btn-sm">Save <span class="glyphicon glyphicon-save"></span></button></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="input-group">
+                            <label for="school">School</label>
+                            <input type="text" class="form-control" value="{{ user.teacherprofile.school }}" id="school" name="school">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <label for="description">Biography</label>
+                            <br>
+                        <textarea name="description" id="description" rows="10" cols="80">
+                            {{ user.teacherprofile.description }}
+                        </textarea>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}
+    {% load compress staticfiles %}
+    {% compress js %}
+        <script src="{% static 'transfusion/js/ckeditor.js' %}"></script>
+    {% endcompress %}
+
+    {% compress js inline %}
+        <script type="text/javascript">
+            CKEDITOR.replace('description');
+        </script>
+    {% endcompress %}
+{% endblock %}

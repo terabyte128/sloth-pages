@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    {% load staticfiles compress %}
+    <meta charset="UTF-8">
+    {% compress js %}
+        <script type="text/javascript" src="{% static 'transfusion/js/jquery-1.11.3.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'transfusion/js/bootstrap.min.js' %}"></script>
+    {% endcompress %}
+
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'transfusion/css/bootswatch-min.css' %}">
+    {% endcompress %}
+
+    {% block extra_css %}{% endblock %}
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+
+{% block nav %}
+{% endblock %}
+
+<div class="container">
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+    {% block main_content %}
+    {% endblock %}
+</div>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

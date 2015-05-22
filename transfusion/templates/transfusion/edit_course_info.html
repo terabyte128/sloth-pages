@@ -1,0 +1,60 @@
+{% extends 'transfusion/base.html' %}
+{% block title %}{{ user.get_full_name }}{% endblock %}
+
+{% block nav %}
+    {% include 'transfusion/logged_in_header.html' %}
+{% endblock %}
+
+{% block main_content %}
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="{% url 'transfusion:index' %}">{{ user.get_full_name }}</a></li>
+                <li class="active">{{ course.name }}</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form role="form" method="post">
+                {% csrf_token %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{ course.name }} &nbsp;<button class="btn btn-success btn-sm">Save <span class="glyphicon glyphicon-save"></span></button></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="input-group">
+                            <label>Name</label>
+                            <input class="form-control" name="name" value="{{ course.name }}">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <label>Short Description (less than 500 characters)</label>
+                            <input class="form-control" name="short_description" value="{{ course.short_description }}">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <label>Description</label>
+                             <textarea name="description" name="description" id="description" rows="10" cols="80">
+                            {{ course.description }}
+                        </textarea>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    {% load compress staticfiles %}
+    {% compress js %}
+        <script src="{% static 'transfusion/js/ckeditor.js' %}"></script>
+    {% endcompress %}
+
+    {% compress js inline %}
+        <script type="text/javascript">
+            CKEDITOR.replace('description');
+        </script>
+    {% endcompress %}
+{% endblock %}

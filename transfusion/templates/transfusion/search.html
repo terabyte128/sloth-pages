@@ -1,0 +1,50 @@
+{% extends 'transfusion/base.html' %}
+{% block title %}Search{% endblock %}
+
+{% block nav %}
+    {% include 'transfusion/index_header.html' %}
+{% endblock %}
+
+{% block main_content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Teacher Search</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+
+                    <form class="form" action="" method="get">
+                        <div class="input-group">
+                            <span class="input-group-addon">Results for</span>
+                            <input type="text" class="form-control" value="{{ term }}" name="term">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="submit">Search Again</button>
+                        </span>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-body">
+                    {% if results %}
+                        {% for result in results %}
+                            <div class="well">
+                                <h4><a href="{% url 'transfusion:teacher_profile' teacher=result.username %}">{{ result.get_full_name }}</a></h4>
+                                {% if result.course_set %}
+                                    <ul>
+                                        {% for course in result.course_set.all %}
+                                            <li><a href="{% url 'transfusion:course' teacher=result.username course=course.id %}">{{ course.name }}</a>{% if course.short_description %} &mdash; {{ course.short_description }}{% endif %}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <h3>No results found.</h3>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

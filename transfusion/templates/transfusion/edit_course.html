@@ -1,0 +1,75 @@
+{% extends 'transfusion/base.html' %}
+{% block title %}{{ user.get_full_name }}{% endblock %}
+
+{% block nav %}
+    {% include 'transfusion/logged_in_header.html' %}
+{% endblock %}
+
+{% block main_content %}
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="{% url 'transfusion:index' %}">{{ user.get_full_name }}</a></li>
+                <li class="active">{{ course.name }}</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ course.name }} &nbsp;<button onclick="window.location='{% url 'transfusion:edit_course_info' course_id=course.id %}';" class="btn btn-info btn-sm">Edit <span class="glyphicon glyphicon-edit"></span></button></h3>
+                </div>
+                <div class="panel-body">
+                    <p><strong>Short Description</strong></p>
+                    <p>{{ course.short_description }}</p>
+                    <p><strong>Description</strong></p>
+                    <p>{{ course.description|safe }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Assignments &nbsp;<button onclick="window.location='{% url 'transfusion:add_assignment' course_id=course.id %}';" class="btn btn-default btn-sm">Add <span class="glyphicon glyphicon-plus"></span></button></h3>
+                </div>
+                <div class="panel-body">
+                    {% if assignments %}
+                        {% for assignment in assignments %}
+                            <div class="well">
+                                <h4>{{ assignment.name }}&nbsp;<small{% if assignment.is_past_due %} style="color: firebrick;"{% endif %}> Due: {{ assignment.due_date }}</small></h4>
+                                <p>{{ assignment.description|safe }}</p>
+                                <button onclick="window.location='{% url 'transfusion:edit_assignment' course_id=course.id assignment_id=assignment.id %}';" class="btn btn-info btn-sm">Edit <span class="glyphicon glyphicon-edit"></span></button>
+                                <button onclick="if(confirm('Are you sure you wish to delete this assignment?')) { window.location = '{% url 'transfusion:delete_assignment' course_id=course.id assignment_id=assignment.id %}' }" class="btn btn-danger btn-sm">Delete <span class="glyphicon glyphicon-remove"></span></button>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <h4>No assignments exist. </h4>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Links &nbsp;<button onclick="window.location='{% url 'transfusion:edit_course_info' course_id=course.id %}';" class="btn btn-default btn-sm">Add <span class="glyphicon glyphicon-plus"></span></button></h3>
+                </div>
+                <div class="panel-body">
+                    {% if links %}
+                        {% for link in links %}
+                            <div class="well">
+                                <h4><a href="{{ link.address }}" target="_blank">{{ link.name }}</a></h4>
+                                <p>{{ link.description|safe }}</p>
+                                <p><small><a href="{{ link.address }}" target="_blank">{{ link.address }}</a></small></p>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <h4>No links exist. </h4>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

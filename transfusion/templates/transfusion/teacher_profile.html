@@ -1,0 +1,49 @@
+{% extends 'transfusion/base.html' %}
+{% block title %}{{ user.get_full_name }}{% endblock %}
+
+{% load markdown_deux_tags %}
+
+{% block nav %}
+    {% include 'transfusion/teacher_header.html' %}
+{% endblock %}
+
+
+{% block main_content %}
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li class="active">{{ user.get_full_name }}</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">About {{ user.get_full_name }}</h3>
+                </div>
+                <div class="panel-body">
+                    <p><strong>School: </strong>{{ user.teacherprofile.school }}</p>
+                    <p>{{ user.teacherprofile.description|safe }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Courses</h3>
+                </div>
+                <div class="panel-body">
+                    {% for course in user.course_set.all %}
+                        <div class="well">
+                            <h5><a href="{% url 'transfusion:course' teacher=user.username course=course.id %}">{{ course.name }}</a></h5>
+                            {% if course.short_description %}
+                                <p>{{ course.short_description }}</p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

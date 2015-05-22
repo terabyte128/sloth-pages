@@ -1,0 +1,33 @@
+{% extends 'transfusion/base.html' %}
+{% block title %}{{ user.get_full_name }}{% endblock %}
+
+{% block nav %}
+    {% include 'transfusion/logged_in_header.html' %}
+{% endblock %}
+
+{% block main_content %}
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li class="active">{{ user.get_full_name }}</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">My Home Page &nbsp;<button onclick="window.location='{% url 'transfusion:edit_profile' %}';" class="btn btn-info btn-sm">Edit <span class="glyphicon glyphicon-edit"></span></button></h3>
+                </div>
+                <div class="panel-body">
+                    <strong>School</strong>
+                    <p>{{ user.teacherprofile.school }}</p>
+                    <strong>Biography</strong>
+                    <p>{{ user.teacherprofile.description|safe }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

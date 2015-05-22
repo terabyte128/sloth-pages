@@ -1,0 +1,70 @@
+{% extends 'transfusion/base.html' %}
+{% block title %}Edit Assignment{% endblock %}
+
+{% block nav %}
+    {% include 'transfusion/logged_in_header.html' %}
+{% endblock %}
+
+{% block main_content %}
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="{% url 'transfusion:index' %}">{{ user.get_full_name }}</a></li>
+                <li><a href="{% url 'transfusion:edit_course' course_id=course.id %}">{{ course.name }}</a></li>
+                <li class="active">Edit Assignment</li>
+
+            </ol>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <form role="form" method="post">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{ assignment.name }} &nbsp;<button class="btn btn-success btn-sm">Save <span class="glyphicon glyphicon-save"></span></button></h3>
+                    </div>
+                    <div class="panel-body">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" class="form-control" value="{{ assignment.name }}">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <label for="due_date">Due Date</label><br>
+                            <input type="text" id="due_date" name="due_date" class="form-control" value="{{ assignment.due_date|date:"Y-m-d" }}">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <label for="description">Description</label>
+                            <textarea name="description" id="description">{{ assignment.description }}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}
+    {% load compress staticfiles %}
+    {% compress js %}
+        <script src="{% static 'transfusion/js/ckeditor.js' %}"></script>
+        <script src="{% static 'transfusion/js/datepickr.min.js' %}"></script>
+    {% endcompress %}
+
+    {% compress js inline %}
+        <script type="text/javascript">
+            CKEDITOR.replace('description');
+            datepickr('#due_date', { dateFormat: 'Y-m-d' });
+        </script>
+    {% endcompress %}
+{% endblock %}
+
+{% block extra_css %}
+    {% compress css %}
+    <link rel="stylesheet" href="{% static 'transfusion/css/datepickr.min.css' %}">
+    {% endcompress %}
+{% endblock %}
