@@ -18,13 +18,35 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">{{ course.name }} &nbsp;<button onclick="window.location='{% url 'transfusion:edit_course_info' course_id=course.id %}';" class="btn btn-info btn-sm">Edit <span class="glyphicon glyphicon-edit"></span></button></h3>
+                    <h3 class="panel-title">{{ course.name }} &nbsp;<button onclick="window.location='{% url 'transfusion:edit_course_info' course_id=course.id %}';" class="btn btn-info btn-sm">Edit <span class="glyphicon glyphicon-edit"></span></button>&nbsp;<button onclick="$('#danger_zone').slideToggle();" class="btn btn-sm btn-warning">Delete... <span class="glyphicon glyphicon-remove-sign"></span></button></h3>
                 </div>
                 <div class="panel-body">
                     <p><strong>Short Description</strong></p>
                     <p>{{ course.short_description }}</p>
                     <p><strong>Description</strong></p>
                     <p>{{ course.description|safe }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="display: none;" id="danger_zone">
+        <div class="col-md-12">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Danger Zone</h3>
+                </div>
+                <div class="panel-body">
+                    <form role="form" onsubmit="return prompt('Are you sure you wish to continue? Type YES to confirm.') === 'YES';" class="form-inline" action="{% url 'transfusion:delete_things' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="course_id" value="{{ course.id }}">
+                        <div class="input-group form-group has-error">
+                            <div class="input-group-addon">Password</div>
+                            <input class="form-control" type="password" name="password" required="true">
+                        </div>
+                        <button name="assignments" class="btn btn-danger">Delete All Assignments</button>
+                        <button name="links" class="btn btn-danger">Delete All Links</button>
+                        <button name="course" class="btn btn-warning">Delete Course</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -54,7 +76,7 @@
         <div class="col-md-6">
             <div class="panel panel-success">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Links &nbsp;<button onclick="window.location='{% url 'transfusion:edit_course_info' course_id=course.id %}';" class="btn btn-default btn-sm">Add <span class="glyphicon glyphicon-plus"></span></button></h3>
+                    <h3 class="panel-title">Links &nbsp;<button onclick="window.location='{% url 'transfusion:add_link' course_id=course.id %}';" class="btn btn-default btn-sm">Add <span class="glyphicon glyphicon-plus"></span></button></h3>
                 </div>
                 <div class="panel-body">
                     {% if links %}
@@ -63,6 +85,9 @@
                                 <h4><a href="{{ link.address }}" target="_blank">{{ link.name }}</a></h4>
                                 <p>{{ link.description|safe }}</p>
                                 <p><small><a href="{{ link.address }}" target="_blank">{{ link.address }}</a></small></p>
+                                <button onclick="window.location='{% url 'transfusion:edit_link' course_id=course.id link_id=link.id %}';" class="btn btn-info btn-sm">Edit <span class="glyphicon glyphicon-edit"></span></button>
+                                <button onclick="if(confirm('Are you sure you wish to delete this link?')) { window.location = '{% url 'transfusion:delete_link' course_id=course.id link_id=link.id %}' }" class="btn btn-danger btn-sm">Delete <span class="glyphicon glyphicon-remove"></span></button>
+
                             </div>
                         {% endfor %}
                     {% else %}

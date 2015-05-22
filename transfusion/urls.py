@@ -14,6 +14,8 @@ urlpatterns = patterns(
     url(r'^sign_in/$', views.sign_in, name="sign_in"),
     url(r'^sign_out/$', views.sign_out, name="sign_out"),
 
+    url(r'^add_course/$', views.add_course, name='add_course'),
+
     url(r'^edit_profile/$', views.edit_profile, name='edit_profile'),
     url(r'^edit_course/(?P<course_id>[0-9]+)/$', views.edit_course, name='edit_course'),
     url(r'^edit_course/(?P<course_id>[0-9]+)/add_assignment/$', views.add_assignment, name='add_assignment'),
@@ -21,5 +23,15 @@ urlpatterns = patterns(
     url(r'^edit_course/(?P<course_id>[0-9]+)/delete_assignment/(?P<assignment_id>[0-9]+)/$', views.delete_assignment, name='delete_assignment'),
 
     url(r'^edit_course/(?P<course_id>[0-9]+)/info/$', views.edit_course_info, name='edit_course_info'),
+
+    url(r'^edit_course/(?P<course_id>[0-9]+)/add_link/$', views.add_link, name='add_link'),
+    url(r'^edit_course/(?P<course_id>[0-9]+)/edit_link/(?P<link_id>[0-9]+)/$', views.edit_link, name='edit_link'),
+    url(r'^edit_course/(?P<course_id>[0-9]+)/delete_link/(?P<link_id>[0-9]+)/$', views.delete_link, name='delete_link'),
+
+
+    url(r'^preferences/$', views.preferences, name='preferences'),
+    url(r'^preferences/password/$', views.change_password, name='change_password'),
+
+    url(r'^delete/$', views.delete_things, name='delete_things'),
 
     )

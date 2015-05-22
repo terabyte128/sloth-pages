@@ -1,0 +1,49 @@
+{% extends 'transfusion/base.html' %}
+{% block title %}Preferences{% endblock %}
+
+{% block nav %}
+    {% include 'transfusion/logged_in_header.html' %}
+{% endblock %}
+
+{% block main_content %}
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="{% url 'transfusion:index' %}">{{ user.get_full_name }}</a></li>
+                <li class="active">Preferences</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form role="form" method="post">
+                {% csrf_token %}
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">User Preferences &nbsp;<button class="btn btn-success btn-sm">Save <span class="glyphicon glyphicon-save"></span></button></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="input-group">
+                            <label>First Name</label>
+                            <input class="form-control" type="text" name="first_name" required="true" value="{{ request.user.first_name }}">
+                        </div>
+                        <br>
+                         <div class="input-group">
+                            <label>Last Name</label>
+                            <input class="form-control" type="text" name="last_name" required="true" value="{{ request.user.last_name }}">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <label>Email Address</label>
+                            <input class="form-control" type="text" name="email_address" required="true" value="{{ request.user.email }}">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <a href="{% url 'transfusion:change_password' %}">Change Password</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -5,11 +5,11 @@ from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db.models.query_utils import Q
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
-from transfusion.models import Course, Assignment
+from transfusion.models import Course, Assignment, Link
 
 
 def index(request):
@@ -130,6 +130,7 @@ def edit_course(request, course_id):
     return render(request, 'transfusion/edit_course.html', context)
 
 
+@login_required
 def edit_course_info(request, course_id):
     try:
         course = Course.objects.get(id=course_id, user=request.user)
@@ -148,6 +149,8 @@ def edit_course_info(request, course_id):
 
         course.save()
 
+        messages.success(request, "Course changed.")
+
         return HttpResponseRedirect(reverse('transfusion:edit_course', kwargs={'course_id': course_id}))
 
     else:
@@ -159,6 +162,7 @@ def edit_course_info(request, course_id):
         return render(request, 'transfusion/edit_course_info.html', context)
 
 
+@login_required
 def add_assignment(request, course_id):
     try:
         course = Course.objects.get(id=course_id, user=request.user)
@@ -182,6 +186,8 @@ def add_assignment(request, course_id):
             }
             return render(request, 'transfusion/add_assignment.html', context)
 
+        messages.success(request, "Assignment added.")
+
         return HttpResponseRedirect(reverse('transfusion:edit_course', kwargs={'course_id': course.id}))
 
     else:
@@ -191,6 +197,7 @@ def add_assignment(request, course_id):
         return render(request, 'transfusion/add_assignment.html', context)
 
 
+@login_required
 def edit_assignment(request, course_id, assignment_id):
     try:
         course = Course.objects.get(id=course_id, user=request.user)
@@ -222,6 +229,8 @@ def edit_assignment(request, course_id, assignment_id):
             }
             return render(request, 'transfusion/add_assignment.html', context)
 
+        messages.success(request, "Assignment changed.")
+
         return HttpResponseRedirect(reverse('transfusion:edit_course', kwargs={'course_id': course.id}))
 
     else:
@@ -232,6 +241,7 @@ def edit_assignment(request, course_id, assignment_id):
         return render(request, 'transfusion/edit_assignment.html', context)
 
 
+@login_required
 def delete_assignment(request, course_id, assignment_id):
     try:
         assignment = Assignment.objects.get(id=assignment_id, course_id=course_id)
@@ -241,3 +251,205 @@ def delete_assignment(request, course_id, assignment_id):
         messages.warning(request, "This assignment does not exist.")
 
     return HttpResponseRedirect(reverse('transfusion:edit_course', kwargs={'course_id': course_id}))
+
+
+@login_required
+def add_link(request, course_id):
+    try:
+        course = Course.objects.get(id=course_id, user=request.user)
+    except Course.DoesNotExist:
+        messages.warning(request, "This course does not exist.")
+        return HttpResponseRedirect(reverse('transfusion:index'))
+
+    if request.method == "POST":
+        name = request.POST.get('name')
+        address = request.POST.get('address')
+        description = request.POST.get('description')
+
+        new_link = Link(name=name, address=address, description=description, course=course)
+        try:
+            new_link.save()
+        except ValidationError:
+            messages.error(request, "Unable to save link. Please try again.")
+
+            context = {
+                'course': course
+            }
+            return render(request, 'transfusion/add_link.html', context)
+
+        messages.success(request, "Link added.")
+
+        return HttpResponseRedirect(reverse('transfusion:edit_course', kwargs={'course_id': course.id}))
+
+    else:
+        context = {
+            'course': course
+        }
+        return render(request, 'transfusion/add_link.html', context)
+
+
+@login_required
+def edit_link(request, course_id, link_id):
+    try:
+        course = Course.objects.get(id=course_id, user=request.user)
+        link = Link.objects.get(id=link_id, course=course)
+
+    except Course.DoesNotExist:
+        messages.warning(request, "This course does not exist.")
+        return HttpResponseRedirect(reverse('transfusion:index'))
+
+    except Link.DoesNotExist:
+        messages.warning(request, "This link does not exist.")
+        return HttpResponseRedirect(reverse('transfusion:index'))
+
+    if request.method == "POST":
+        name = request.POST.get('name')
+        address = request.POST.get('address')
+        description = request.POST.get('description')
+
+        link.name = name
+        link.address = address
+        link.description = description
+
+        try:
+            link.save()
+        except ValidationError:
+            messages.error(request, "Unable to save link. Please try again.")
+            context = {
+                'course': course
+            }
+            return render(request, 'transfusion/add_link.html', context)
+
+        messages.success(request, "Link changed.")
+
+        return HttpResponseRedirect(reverse('transfusion:edit_course', kwargs={'course_id': course.id}))
+
+    else:
+        context = {
+            'course': course,
+            'link': link,
+        }
+        return render(request, 'transfusion/edit_link.html', context)
+
+
+@login_required
+def delete_link(request, course_id, link_id):
+    try:
+        link = Link.objects.get(id=link_id, course_id=course_id)
+        link.delete()
+        messages.success(request, "Link deleted.")
+    except Link.DoesNotExist:
+        messages.warning(request, "This link does not exist.")
+
+    return HttpResponseRedirect(reverse('transfusion:edit_course', kwargs={'course_id': course_id}))
+
+
+@login_required
+def add_course(request):
+
+    if request.method == "POST":
+        name = request.POST.get("name")
+        short_description = request.POST.get("short_description")
+        description = request.POST.get('description')
+
+        course = Course(name=name, short_description=short_description, description=description, user=request.user)
+
+        try:
+            course.save()
+        except ValueError:
+            messages.warning(request, "Unable to save course. Please try again.")
+            return HttpResponseRedirect(reverse("transfusion:add_course"))
+
+        messages.success(request, "Course created.")
+        return HttpResponseRedirect(reverse("transfusion:edit_course", kwargs={'course_id': course.id}))
+
+    else:
+        return render(request, 'transfusion/add_course.html')
+
+
+@login_required
+def preferences(request):
+
+    if request.method == "POST":
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get("last_name")
+        email = request.POST.get('email_address')
+
+        request.user.first_name = first_name
+        request.user.last_name = last_name
+        request.user.email = email
+
+        try:
+            request.user.save()
+        except ValueError:
+            messages.warning(request, "Unable to save user preferences.")
+            return render(request, "transfusion/preferences.html")
+
+        messages.success(request, "Preferences updated.")
+        return HttpResponseRedirect(reverse("transfusion:index"))
+
+    else:
+        return render(request, "transfusion/preferences.html")
+
+
+@login_required
+def change_password(request):
+
+    if request.method == "POST":
+        current_password = request.POST.get("current_password")
+        new_password = request.POST.get("new_password")
+        new_password_repeat = request.POST.get("new_password_repeat")
+
+        if new_password != new_password_repeat:
+            messages.warning(request, "Your passwords do not match. Please try again.")
+            return render(request, 'transfusion/change_password.html')
+
+        if request.user.check_password(current_password):
+            request.user.set_password(new_password)
+            request.user.save()
+            messages.success(request, "Password changed. You may have to login again.")
+            return HttpResponseRedirect(reverse('transfusion:preferences'))
+        else:
+            messages.warning(request, "Your old password was entered incorrectly. Please try again.")
+            return render(request, 'transfusion/change_password.html')
+
+    else:
+        return render(request, 'transfusion/change_password.html')
+
+
+@login_required
+def delete_things(request):
+    password = request.POST.get('password')
+    course_id = request.POST.get('course_id')
+
+    try:
+        course = Course.objects.get(id=course_id)
+    except Course.DoesNotExist:
+        messages.warning(request, "Course does not exist.")
+        return HttpResponseRedirect(reverse("transfusion:index"))
+
+    if 'assignments' in request.POST:
+        try:
+            assignments = Assignment.objects.filter(course=course)
+            assignments.delete()
+        except Assignment.DoesNotExist:
+            pass
+
+        messages.success(request, "All assignments deleted.")
+        return HttpResponseRedirect(reverse('transfusion:edit_course', kwargs={'course_id': course_id}))
+
+    elif 'links' in request.POST:
+        try:
+            links = Link.objects.filter(course=course)
+            links.delete()
+        except Link.DoesNotExist:
+            pass
+
+        messages.success(request, "All links deleted.")
+        return HttpResponseRedirect(reverse('transfusion:edit_course', kwargs={'course_id': course_id}))
+
+    elif 'course' in request.POST:
+        course.delete()
+        messages.success(request, "Course deleted.")
+
+        return HttpResponseRedirect(reverse('transfusion:index'))

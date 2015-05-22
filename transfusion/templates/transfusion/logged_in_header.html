@@ -20,8 +20,8 @@
                         {% endfor %}
                     </ul>
                 </li>
-                <li><a href="#">Add Course</a></li>
-                <li><a href="#">Preferences</a></li>
+                <li><a href="{% url 'transfusion:add_course' %}">Add Course</a></li>
+                <li><a href="{% url 'transfusion:preferences' %}">Preferences</a></li>
                 <li><a href="{% url 'transfusion:sign_out' %}">Log Out</a></li>
             </ul>
         </div>
