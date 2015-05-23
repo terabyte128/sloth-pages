@@ -50,8 +50,8 @@
 
 {% block extra_js %}
     {% load compress staticfiles %}
-    {% compress js %}
         <script src="{% static 'transfusion/js/ckeditor.js' %}"></script>
+    {% compress js %}
         <script src="{% static 'transfusion/js/datepickr.min.js' %}"></script>
     {% endcompress %}
 

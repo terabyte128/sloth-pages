@@ -45,9 +45,7 @@
 
 {% block extra_js %}
     {% load compress staticfiles %}
-    {% compress js %}
         <script src="{% static 'transfusion/js/ckeditor.js' %}"></script>
-    {% endcompress %}
 
     {% compress js inline %}
         <script type="text/javascript">
