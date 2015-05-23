@@ -25,7 +25,7 @@ def search(request):
     term = request.GET.get('term')
 
     if not term == "":
-        results = User.objects.filter(Q(username__contains=term) | Q(last_name__contains=term))
+        results = User.objects.filter(Q(username__icontains=term) | Q(last_name__icontains=term))
     else:
         results = None
 
