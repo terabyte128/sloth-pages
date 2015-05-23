@@ -117,3 +117,16 @@ MESSAGE_TAGS = {
 }
 
 LOGIN_URL = "/"
+
+STATICFILES_FINDERS = (
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "compressor.finders.CompressorFinder",
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+)
+
+# Local settings
+try:
+    from .local_settings import *
+except ImportError:
+    pass
