@@ -10,7 +10,7 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
-from transfusion.models import Course, Assignment, Link
+from transfusion.models import Course, Assignment, Link, TeacherProfile
 
 
 def index(request):
@@ -465,13 +465,16 @@ def create_account(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         password_repeat = request.POST.get('retype_password')
+        school = request.POST.get('school')
 
         if password != password_repeat:
             messages.error(request, "Your passwords do not match. Please try again.")
             return HttpResponseRedirect(reverse('transfusion:create_account'))
 
         try:
-            User.objects.create_user(username, email, password, first_name=first_name, last_name=last_name)
+            user = User.objects.create_user(username, email, password, first_name=first_name, last_name=last_name)
+            profile = TeacherProfile(school=school, user=user)
+            profile.save()
         except IntegrityError:
             messages.error(request, "That username is taken, please try another.")
             return HttpResponseRedirect(reverse('transfusion:create_account'))
