@@ -1,14 +1,24 @@
 {% extends 'transfusion/base.html' %}
-{% block title %}Transfusion{% endblock %}
+{% block title %}Sloth Pages{% endblock %}
+
+{% load staticfiles %}
 
 {% block nav %}
-        {% include 'transfusion/index_header.html' %}
+    {% include 'transfusion/index_header.html' %}
 {% endblock %}
 
 {% block main_content %}
-        <div class="col-md-12">
-            <h1>Welcome to Transfusion</h1>
+    <div class="row">
+        <div class="col-sm-2">
+            <img src="{% static 'transfusion/img/sloth-46159_640.png' %}" style="width: 100px;">
         </div>
+        <div class="col-sm-10">
+            <h1><small>Welcome to</small> Sloth Pages</h1>
+            <p style="font-style: italic;">Allowing students and teachers to connect beyond the classroom</p>
+        </div>
+    </div>
+    <br>
+    <div class="row">
         <div class="col-md-6">
             <div class="panel panel-success">
                 <div class="panel-heading">
@@ -53,4 +63,10 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p style="text-align: center;">Sloth Pages are open source. <a href="https://github.com/terabyte128/transfusion_v2" target="_blank">Follow us on GitHub!</a></p>
+            </div>
+        </div>
+    </div>
 {% endblock %}

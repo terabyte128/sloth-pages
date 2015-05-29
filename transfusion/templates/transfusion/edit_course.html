@@ -52,7 +52,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h3 class="panel-title">Assignments &nbsp;<button onclick="window.location='{% url 'transfusion:add_assignment' course_id=course.id %}';" class="btn btn-default btn-sm">Add <span class="glyphicon glyphicon-plus"></span></button></h3>
@@ -61,7 +61,7 @@
                     {% if assignments %}
                         {% for assignment in assignments %}
                             <div class="well">
-                                <h4>{{ assignment.name }}&nbsp;<small{% if assignment.is_past_due %} style="color: firebrick;"{% endif %}> Due: {{ assignment.due_date }}</small></h4>
+                                <h4>{{ assignment.name }}&nbsp;<br><small{% if assignment.is_past_due %} style="color: firebrick;"{% endif %}> Due: {{ assignment.due_date }}</small></h4>
                                 <p>{{ assignment.description|safe }}</p>
                                 <button onclick="window.location='{% url 'transfusion:edit_assignment' course_id=course.id assignment_id=assignment.id %}';" class="btn btn-info btn-sm">Edit <span class="glyphicon glyphicon-edit"></span></button>
                                 <button onclick="if(confirm('Are you sure you wish to delete this assignment?')) { window.location = '{% url 'transfusion:delete_assignment' course_id=course.id assignment_id=assignment.id %}' }" class="btn btn-danger btn-sm">Delete <span class="glyphicon glyphicon-remove"></span></button>
@@ -73,7 +73,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="panel panel-success">
                 <div class="panel-heading">
                     <h3 class="panel-title">Links &nbsp;<button onclick="window.location='{% url 'transfusion:add_link' course_id=course.id %}';" class="btn btn-default btn-sm">Add <span class="glyphicon glyphicon-plus"></span></button></h3>
@@ -93,6 +93,16 @@
                     {% else %}
                         <h4>No links exist. </h4>
                     {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Files &nbsp;<button onclick="alert('not yet implemented!!');" class="btn btn-default btn-sm">Add <span class="glyphicon glyphicon-plus"></span></button></h3>
+                </div>
+                <div class="panel-body">
+                    <p><i>Coming soon!</i></p>
                 </div>
             </div>
         </div>
