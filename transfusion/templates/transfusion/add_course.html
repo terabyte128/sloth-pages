@@ -16,7 +16,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <form role="form" method="post">
+            <form role="form" id="add_course_form" method="post" onsubmit="return validateForm(this.id);">
                 {% csrf_token %}
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -24,18 +24,18 @@
                     </div>
                     <div class="panel-body">
                         <div class="input-group">
-                            <label>Name</label>
-                            <input class="form-control" type="text" name="name" required="true">
+                            <label for="name">Name</label>
+                            <input class="form-control" type="text" name="name" id="name" required="true">
                         </div>
                         <br>
                         <div class="input-group">
-                            <label>Short Description</label>
-                            <input class="form-control" type="text" name="short_description" required="true">
+                            <label for="short_description">Short Description</label>
+                            <input class="form-control" type="text" id="short_description" name="short_description" required="true">
                             <p style="margin-top: 50px;">This will appear when students search for your course.</p>
                         </div>
                         <br>
                         <div class="input-group">
-                            <label>Description</label>
+                            <label for="description">Description</label>
                             <textarea name="description" id="description"></textarea>
                         </div>
                     </div>
@@ -48,7 +48,12 @@
 
 {% block extra_js %}
     {% load compress staticfiles %}
-        <script src="{% static 'transfusion/js/ckeditor.js' %}"></script>
+    <script src="{% static 'transfusion/js/ckeditor.js' %}"></script>
+
+    {% compress js %}
+        <script src="{% static 'transfusion/js/form_validation.js' %}"></script>
+    {% endcompress %}
+
 
     {% compress js inline %}
         <script type="text/javascript">

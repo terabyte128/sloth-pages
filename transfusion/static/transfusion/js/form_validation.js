@@ -5,8 +5,6 @@ function validateForm(formId) {
     var inputs = $('#' + formId).find('input[required=true]');
     var errors = [];
 
-    console.log(inputs);
-
     inputs.each(function() {
         var id = this.id;
         var val = $(this).val();

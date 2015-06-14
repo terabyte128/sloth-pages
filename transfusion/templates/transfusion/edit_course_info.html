@@ -16,7 +16,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <form role="form" method="post">
+            <form role="form" id="edit_course_form" method="post" onsubmit="return validateForm(this.id);">
                 {% csrf_token %}
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -24,13 +24,13 @@
                     </div>
                     <div class="panel-body">
                         <div class="input-group">
-                            <label>Name</label>
-                            <input class="form-control" name="name" value="{{ course.name }}">
+                            <label for="name">Name</label>
+                            <input id="name" class="form-control" name="name" value="{{ course.name }}" required="true">
                         </div>
                         <br>
                         <div class="input-group">
-                            <label>Short Description (less than 500 characters)</label>
-                            <input class="form-control" name="short_description" value="{{ course.short_description }}">
+                            <label for="short_description">Short Description (less than 500 characters)</label>
+                            <input id="short_description" class="form-control" required="true" name="short_description" value="{{ course.short_description }}">
                         </div>
                         <br>
                         <div class="input-group">
@@ -49,6 +49,11 @@
 {% block extra_js %}
     {% load compress staticfiles %}
     <script src="{% static 'transfusion/js/ckeditor.js' %}"></script>
+
+    {% compress js %}
+        <script src="{% static 'transfusion/js/form_validation.js' %}"></script>
+    {% endcompress %}
+
 
     {% compress js inline %}
         <script type="text/javascript">
