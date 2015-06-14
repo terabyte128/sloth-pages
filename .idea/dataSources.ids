@@ -131,8 +131,20 @@
       <primary-key columns="id"/>
       <foreign-key name="#FAKE_transfusion_course_1" columns="user_id" ref-table="auth_user" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <exported-key name="#FAKE_transfusion_assignment_1" table="transfusion_assignment" schema="" catalog="" columns="course_id"/>
+      <exported-key name="#FAKE_transfusion_file_1" table="transfusion_file" schema="" catalog="" columns="course_id"/>
       <exported-key name="#FAKE_transfusion_link_1" table="transfusion_link" schema="" catalog="" columns="course_id"/>
       <index name="transfusion_course_e8701ad4" unique="true" columns="user_id"/>
+    </table>
+    <table name="transfusion_file" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="TEXT" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
+      <column name="description" sqlType="TEXT" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
+      <column name="filename" sqlType="TEXT" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
+      <column name="course_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <column name="path" sqlType="TEXT" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+      <foreign-key name="#FAKE_transfusion_file_1" columns="course_id" ref-table="transfusion_course" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="transfusion_file_ea134da7" unique="true" columns="course_id"/>
     </table>
     <table name="transfusion_link" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>

@@ -29,7 +29,11 @@
                     <div class="tab-content">
                         <div id="description" class="tab-pane fade in active">
                             <h4>{{ course.name }}</h4>
-                            <p>{{ course.description|safe }}</p>
+                            {% if course.description %}
+                                <p>{{ course.description|safe }}</p>
+                            {% else %}
+                                <p>{{ course.short_description }}</p>
+                            {% endif %}
                         </div>
                         <div id="assignments" class="tab-pane fade">
                             {% if assignments %}
