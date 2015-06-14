@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    {% load compress staticfiles %}
+{% load compress staticfiles %}
 
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {% compress js %}
-        <script type="text/javascript" src="{% static 'transfusion/js/jquery-1.11.3.min.js' %}"></script>
-        <script type="text/javascript" src="{% static 'transfusion/js/bootstrap.min.js' %}"></script>
-    {% endcompress %}
+{% compress js %}
+    <script type="text/javascript" src="{% static 'transfusion/js/jquery-1.11.3.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'transfusion/js/bootstrap.min.js' %}"></script>
+{% endcompress %}
 
-    {% compress css %}
-        <link rel="stylesheet" href="{% static 'transfusion/css/bootswatch-min.css' %}">
-    {% endcompress %}
+{% compress css %}
+    <link rel="stylesheet" href="{% static 'transfusion/css/bootswatch-min.css' %}">
+{% endcompress %}
 
-    {% block extra_css %}{% endblock %}
+{% block extra_css %}{% endblock %}
 
-    <title>{% block title %}{% endblock %}</title>
+<title>{% block title %}{% endblock %}</title>
 </head>
 <body>
 
@@ -25,12 +25,26 @@
 {% endblock %}
 
 <div class="container">
-    {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-    {% endfor %}
+    <div class="row">
+        <div class="col-md-12" id="messages">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    </div>
+
     {% block main_content %}
     {% endblock %}
 </div>
+<script type="text/javascript">
+    function pushMessage(body, type) {
+        $("#messages").append('<div class="alert alert-dismissable alert-' + type + '""><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' + body + '</div>');
+    }
+
+    function clearMessages() {
+        $("#messages").empty();
+    }
+</script>
 {% block extra_js %}{% endblock %}
 </body>
 </html>

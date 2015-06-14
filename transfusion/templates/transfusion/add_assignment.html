@@ -19,7 +19,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <form role="form" method="post">
+            <form role="form" id="add_assignment_form" method="post" onsubmit="return validateForm(this.id);">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">Add Assignment &nbsp;<button class="btn btn-success btn-sm">Save <span class="glyphicon glyphicon-save"></span></button></h3>
@@ -28,12 +28,12 @@
                         {% csrf_token %}
                         <div class="input-group">
                             <label for="name">Name</label>
-                            <input type="text" id="name" name="name" class="form-control">
+                            <input type="text" id="name" name="name" class="form-control" required="true">
                         </div>
                         <br>
                         <div class="input-group">
                             <label for="due_date">Due Date</label><br>
-                            <input type="text" id="due_date" name="due_date" class="form-control">
+                            <input type="text" id="due_date" name="due_date" class="form-control" required="true">
                         </div>
                         <br>
                         <div class="input-group">
@@ -49,9 +49,12 @@
 {% endblock %}
 
 {% block extra_js %}
+
+    =
     {% load compress staticfiles %}
-        <script src="{% static 'transfusion/js/ckeditor.js' %}"></script>
+    <script src="{% static 'transfusion/js/ckeditor.js' %}"></script>
     {% compress js %}
+        <script src="{% static 'transfusion/js/form_validation.js' %}"></script>
         <script src="{% static 'transfusion/js/datepickr.min.js' %}"></script>
     {% endcompress %}
 
@@ -65,6 +68,6 @@
 
 {% block extra_css %}
     {% compress css %}
-    <link rel="stylesheet" href="{% static 'transfusion/css/datepickr.min.css' %}">
+        <link rel="stylesheet" href="{% static 'transfusion/css/datepickr.min.css' %}">
     {% endcompress %}
 {% endblock %}

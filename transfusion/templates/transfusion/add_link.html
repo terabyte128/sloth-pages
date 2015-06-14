@@ -19,7 +19,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <form role="form" method="post">
+            <form role="form" method="post" id="link_form" onsubmit="return validateForm();">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">Add Link &nbsp;<button class="btn btn-success btn-sm">Save <span class="glyphicon glyphicon-save"></span></button></h3>
@@ -50,12 +50,44 @@
 
 {% block extra_js %}
     {% load compress staticfiles %}
-        <script src="{% static 'transfusion/js/ckeditor.js' %}"></script>
+    <script src="{% static 'transfusion/js/ckeditor.js' %}"></script>
 
     {% compress js inline %}
         <script type="text/javascript">
             CKEDITOR.replace('description');
-            datepickr('#due_date', { dateFormat: 'Y-m-d' });
+
+            function isUrl(s) {
+                var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+                return regexp.test(s);
+            }
+
+            function validateForm() {
+
+                clearMessages();
+
+                var inputs = $('#link_form').find('input[required=true]');
+                var errors = [];
+
+                inputs.each(function() {
+                    var id = this.id;
+                    var val = $(this).val();
+
+                    if(val.length == 0) {
+                        var name = $("label[for=" + id + "]").text();
+                        errors.push(name + " is required.");
+                    }
+                })
+
+                if(!isUrl($("#address").val())) {
+                    errors.push("URL is incorrectly formatted. Please use prefix of http:// or https://.");
+                }
+
+                if(!(errors.length === 0)) {
+                    pushMessage("<strong>Errors encountered while attempting to save:</strong><br>" + errors.join("<br>"), 'danger');
+                    return false;
+                }
+                return true;
+            }
         </script>
     {% endcompress %}
 {% endblock %}
