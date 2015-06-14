@@ -470,6 +470,20 @@ def delete_things(request):
         return HttpResponseRedirect(reverse('transfusion:edit_course', kwargs={'course_id': course_id}))
 
     elif 'course' in request.POST:
+        # delete files before deleting everything else
+        try:
+            files = File.objects.filter(course=course)
+            for file in files:
+                print(os.path.join(file.path, file.filename))
+                try:
+                    os.remove(os.path.join(file.path, file.filename))
+                except FileNotFoundError:
+                    print('file not found')
+
+            files.delete()
+        except File.DoesNotExist:
+            pass
+
         course.delete()
         messages.success(request, "Course deleted.")
 

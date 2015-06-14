@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bdce2dde-7ec9-4032-a4d4-0c4d0886d728" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/media/sam/6/KeyCheck.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/transfusion/templates/transfusion/add_file.html" afterPath="$PROJECT_DIR$/transfusion/templates/transfusion/add_file.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/transfusion/templates/transfusion/course.html" afterPath="$PROJECT_DIR$/transfusion/templates/transfusion/course.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/transfusion/templates/transfusion/edit_course.html" afterPath="$PROJECT_DIR$/transfusion/templates/transfusion/edit_course.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/transfusion/urls.py" afterPath="$PROJECT_DIR$/transfusion/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/transfusion/views.py" afterPath="$PROJECT_DIR$/transfusion/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="transfusion_v2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,11 +30,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="edit_course.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="edit_course.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/transfusion/templates/transfusion/edit_course.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7781065" vertical-offset="846" max-vertical-offset="1935">
-              <caret line="109" column="74" selection-start-line="109" selection-start-column="74" selection-end-line="109" selection-end-column="74" />
+            <state vertical-scroll-proportion="-48.75" vertical-offset="0" max-vertical-offset="1935">
+              <caret line="78" column="24" selection-start-line="78" selection-start-column="24" selection-end-line="78" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -58,11 +52,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/transfusion/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="416" max-vertical-offset="8880">
-              <caret line="62" column="35" selection-start-line="62" selection-start-column="35" selection-end-line="62" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.71194607" vertical-offset="6596" max-vertical-offset="9090">
+              <caret line="489" column="33" selection-start-line="489" selection-start-column="33" selection-end-line="489" selection-end-column="33" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -113,9 +107,9 @@
         <option value="$PROJECT_DIR$/transfusion/admin.py" />
         <option value="$PROJECT_DIR$/transfusion/urls.py" />
         <option value="$PROJECT_DIR$/transfusion/templates/transfusion/add_file.html" />
-        <option value="$PROJECT_DIR$/transfusion/views.py" />
         <option value="$PROJECT_DIR$/transfusion/templates/transfusion/course.html" />
         <option value="$PROJECT_DIR$/transfusion/templates/transfusion/edit_course.html" />
+        <option value="$PROJECT_DIR$/transfusion/views.py" />
       </list>
     </option>
   </component>
@@ -1045,16 +1039,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/transfusion/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="416" max-vertical-offset="8880">
-          <caret line="62" column="35" selection-start-line="62" selection-start-column="35" selection-end-line="62" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/transfusion/templates/transfusion/course.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-33.125" vertical-offset="105" max-vertical-offset="1440">
@@ -1067,9 +1051,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/transfusion/templates/transfusion/edit_course.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7781065" vertical-offset="846" max-vertical-offset="1935">
-          <caret line="109" column="74" selection-start-line="109" selection-start-column="74" selection-end-line="109" selection-end-column="74" />
+        <state vertical-scroll-proportion="-48.75" vertical-offset="0" max-vertical-offset="1935">
+          <caret line="78" column="24" selection-start-line="78" selection-start-column="24" selection-end-line="78" selection-end-column="24" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/transfusion/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.71194607" vertical-offset="6596" max-vertical-offset="9090">
+          <caret line="489" column="33" selection-start-line="489" selection-start-column="33" selection-end-line="489" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
