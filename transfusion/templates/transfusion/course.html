@@ -22,6 +22,7 @@
                         <li class="active"><a data-toggle="tab" href="#description">Description</a></li>
                         <li><a data-toggle="tab" href="#assignments">Assignments</a></li>
                         <li><a data-toggle="tab" href="#links">Links</a></li>
+                        <li><a data-toggle="tab" href="#files">Files</a></li>
                     </ul>
                 </div>
                 <div class="panel-body">
@@ -53,6 +54,20 @@
                                 {% endfor %}
                             {% else %}
                                 <h4>No links found. </h4>
+                            {% endif %}
+                        </div>
+                        <div id="files" class="tab-pane fade">
+                            {% if files %}
+                                <h5 style="color: firebrick;"><span class="glyphicon glyphicon-alert"></span> Do not execute any files for which you do not trust the source!</h5>
+                                {% for file in files %}
+                                    <div class="well">
+                                        <h4>{{ file.name }} <small>{{ file.filename }}</small></h4>
+                                        <p>{{ file.description|safe }}</p>
+                                        <button onclick="window.location='{% url 'transfusion:download_file' file_id=file.id %}';" class="btn btn-info">Download <span class="glyphicon glyphicon-download-alt"></span></button>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <h4>No files found. </h4>
                             {% endif %}
                         </div>
                     </div>

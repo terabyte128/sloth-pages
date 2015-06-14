@@ -45,6 +45,7 @@
                         </div>
                         <button name="assignments" class="btn btn-danger">Delete All Assignments</button>
                         <button name="links" class="btn btn-danger">Delete All Links</button>
+                        <button name="files" class="btn btn-danger">Delete All Files</button>
                         <button name="course" class="btn btn-warning">Delete Course</button>
                     </form>
                 </div>
@@ -106,7 +107,11 @@
                         {% for file in files %}
                             <div class="well">
                                 <h4>{{ file.name }}</h4>
+                                <h4><small>{{ file.filename }}</small></h4>
                                 <p>{{ file.description|safe }}</p>
+                                <button onclick="window.location='{% url 'transfusion:download_file' file_id=file.id %}';" class="btn btn-info btn-sm">Download <span class="glyphicon glyphicon-download-alt"></span></button>
+                                <button onclick="if(confirm('Are you sure you wish to delete this file?')) { window.location = '{% url 'transfusion:delete_file' course_id=course.id file_id=file.id %}' }" class="btn btn-danger btn-sm">Delete <span class="glyphicon glyphicon-remove"></span></button>
+
                             </div>
                         {% endfor %}
                     {% else %}

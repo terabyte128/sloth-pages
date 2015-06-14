@@ -55,12 +55,14 @@ def course(request, teacher, course):
     t_course = Course.objects.get(id=course)
     assignments = t_course.assignment_set.order_by('-due_date')
     links = t_course.link_set.order_by('-id')
+    files = t_course.file_set.order_by('-id')
 
     context = {
         'user': user,
         'course': t_course,
         'assignments': assignments,
         'links': links,
+        'files': files
     }
 
     return render(request, 'transfusion/course.html', context)
@@ -351,6 +353,19 @@ def delete_link(request, course_id, link_id):
 
 
 @login_required
+def delete_file(request, course_id, file_id):
+    try:
+        file = File.objects.get(id=file_id, course_id=course_id)
+        os.remove(os.path.join(file.path, file.filename))
+        file.delete()
+        messages.success(request, "File deleted.")
+    except Link.DoesNotExist:
+        messages.warning(request, "This file does not exist.")
+
+    return HttpResponseRedirect(reverse('transfusion:edit_course', kwargs={'course_id': course_id}))
+
+
+@login_required
 def add_course(request):
 
     if request.method == "POST":
@@ -458,7 +473,24 @@ def delete_things(request):
         course.delete()
         messages.success(request, "Course deleted.")
 
-        return HttpResponseRedirect(reverse('transfusion:index'))
+    elif 'files' in request.POST:
+        try:
+            files = File.objects.filter(course=course)
+            for file in files:
+                print(os.path.join(file.path, file.filename))
+                try:
+                    os.remove(os.path.join(file.path, file.filename))
+                except FileNotFoundError:
+                    print('file not found')
+
+            files.delete()
+        except File.DoesNotExist:
+            pass
+
+        messages.success(request, "All files deleted.")
+        return HttpResponseRedirect(reverse('transfusion:edit_course', kwargs={'course_id': course_id}))
+
+    return HttpResponseRedirect(reverse('transfusion:index'))
 
 
 @login_required
@@ -484,7 +516,13 @@ def add_file(request, course_id):
         except:
             pass
 
-        with open(os.path.join(full_path, file.name), 'wb+') as destination:
+        new_dest = os.path.join(full_path, file.name)
+
+        if os.path.isfile(new_dest):
+            new_dest += 1
+            file.name += 1
+
+        with open(new_dest, 'wb+') as destination:
             for chunk in file.chunks():
                 destination.write(chunk)
 
