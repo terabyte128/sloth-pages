@@ -48,3 +48,14 @@ class Link(models.Model):
 
     def __str__(self):
         return self.name + " (" + self.course.name + ")"
+
+
+class File(models.Model):
+    course = models.ForeignKey(Course)
+    name = models.TextField()
+    description = models.TextField(blank=True, null=True)
+    filename = models.TextField()
+    path = models.TextField()
+
+    def __str__(self):
+        return self.name + " (" + self.course.name + ")"

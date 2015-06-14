@@ -33,6 +33,9 @@ urlpatterns = patterns(
     url(r'^edit_course/(?P<course_id>[0-9]+)/edit_link/(?P<link_id>[0-9]+)/$', views.edit_link, name='edit_link'),
     url(r'^edit_course/(?P<course_id>[0-9]+)/delete_link/(?P<link_id>[0-9]+)/$', views.delete_link, name='delete_link'),
 
+    url(r'^edit_course/(?P<course_id>[0-9]+)/add_file/$', views.add_file, name='add_file'),
+    #url(r'^edit_course/(?P<course_id>[0-9]+)/edit_link/(?P<link_id>[0-9]+)/$', views.edit_link, name='edit_link'),
+    #url(r'^edit_course/(?P<course_id>[0-9]+)/delete_link/(?P<link_id>[0-9]+)/$', views.delete_link, name='delete_link'),
 
     url(r'^preferences/$', views.preferences, name='preferences'),
     url(r'^preferences/password/$', views.change_password, name='change_password'),
@@ -40,6 +43,9 @@ urlpatterns = patterns(
     url(r'^delete/$', views.delete_things, name='delete_things'),
 
     url('^students/$', TemplateView.as_view(template_name='transfusion/for_students.html'), name="for_students"),
-    url('^teachers/$', TemplateView.as_view(template_name='transfusion/for_teachers.html'), name="for_teachers")
+    url('^teachers/$', TemplateView.as_view(template_name='transfusion/for_teachers.html'), name="for_teachers"),
+
+    url(r'download_file/(?P<file_id>[0-9]+)/$', views.download_file, name='download_file'),
+
 )
 

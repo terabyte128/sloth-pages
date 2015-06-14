@@ -1,3 +1,4 @@
+import os
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -6,11 +7,13 @@ from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db.models.query_utils import Q
 from django.db.utils import IntegrityError
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
-from transfusion.models import Course, Assignment, Link, TeacherProfile
+from django.utils.encoding import smart_str
+from transfusion.models import Course, Assignment, Link, TeacherProfile, File
+from transfusion_v2.settings import BASE_DIR, MEDIA_ROOT
 
 
 def index(request):
@@ -120,12 +123,14 @@ def edit_course(request, course_id):
 
     assignments = course.assignment_set.order_by('-due_date')
     links = course.link_set.order_by('-id')
+    files = course.file_set.order_by('-id')
 
 
     context = {
         'course': course,
         'assignments': assignments,
         'links': links,
+        'files': files
     }
 
     return render(request, 'transfusion/edit_course.html', context)
@@ -454,6 +459,65 @@ def delete_things(request):
         messages.success(request, "Course deleted.")
 
         return HttpResponseRedirect(reverse('transfusion:index'))
+
+
+@login_required
+def add_file(request, course_id):
+
+    try:
+        course = Course.objects.get(id=course_id, user=request.user)
+
+    except Course.DoesNotExist:
+        messages.warning(request, "This course does not exist.")
+        return HttpResponseRedirect(reverse('transfusion:index'))
+
+    if request.method == "POST":
+        name = request.POST.get('name')
+        description = request.POST.get('description')
+        file = request.FILES.get('file')
+
+        folder = request.user.username + '/' + str(course.id)
+        full_path = os.path.join(MEDIA_ROOT, folder)
+
+        try:
+            os.makedirs(full_path)
+        except:
+            pass
+
+        with open(os.path.join(full_path, file.name), 'wb+') as destination:
+            for chunk in file.chunks():
+                destination.write(chunk)
+
+        file = File(name=name, description=description, filename=file.name, path=full_path, course=course)
+
+        file.save()
+
+        messages.success(request, "File added.")
+
+        return HttpResponseRedirect(reverse('transfusion:edit_course', kwargs={'course_id': course.id}))
+
+    else:
+
+        context = {
+            'course': course
+        }
+        return render(request, 'transfusion/add_file.html', context)
+
+
+def download_file(request, file_id):
+
+    try:
+        file = File.objects.get(id=file_id)
+    except File.DoesNotExist:
+        messages.error(request, "File does not exist.")
+        return HttpResponseRedirect(reverse('transfusion:index'))
+
+    response = HttpResponse(content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(file.filename)
+    response['X-Sendfile'] = smart_str(file.path)
+    # It's usually a good idea to set the 'Content-Length' header too.
+    # You can also set any other required headers: Cache-Control, etc.
+    return response
 
 
 def create_account(request):
