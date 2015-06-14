@@ -514,7 +514,7 @@ def download_file(request, file_id):
 
     response = HttpResponse(content_type='application/force-download')
     response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(file.filename)
-    response['X-Sendfile'] = smart_str(file.path)
+    response['X-Sendfile'] = smart_str(os.path.join(file.path, file.filename))
     # It's usually a good idea to set the 'Content-Length' header too.
     # You can also set any other required headers: Cache-Control, etc.
     return response
