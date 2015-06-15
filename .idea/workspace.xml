@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bdce2dde-7ec9-4032-a4d4-0c4d0886d728" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/transfusion/templates/transfusion/add_file.html" afterPath="$PROJECT_DIR$/transfusion/templates/transfusion/add_file.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/transfusion/templates/transfusion/add_link.html" afterPath="$PROJECT_DIR$/transfusion/templates/transfusion/add_link.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/transfusion/templates/transfusion/edit_link.html" afterPath="$PROJECT_DIR$/transfusion/templates/transfusion/edit_link.html" />
     </list>
     <ignored path="transfusion_v2.iws" />
@@ -59,11 +57,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="add_file.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="add_file.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/transfusion/templates/transfusion/add_file.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.88757396">
-              <caret line="60" column="13" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
+            <state vertical-scroll-proportion="-2.5">
+              <caret line="4" column="53" selection-start-line="4" selection-start-column="53" selection-end-line="4" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -79,11 +77,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="edit_link.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="edit_link.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/transfusion/templates/transfusion/edit_link.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-16.791666">
-              <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.82642996">
+              <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -177,8 +175,8 @@
         <option value="$PROJECT_DIR$/transfusion/templates/transfusion/course.html" />
         <option value="$PROJECT_DIR$/transfusion/templates/transfusion/logged_in_header.html" />
         <option value="$PROJECT_DIR$/transfusion/templates/transfusion/add_link.html" />
-        <option value="$PROJECT_DIR$/transfusion/templates/transfusion/edit_link.html" />
         <option value="$PROJECT_DIR$/transfusion/templates/transfusion/add_file.html" />
+        <option value="$PROJECT_DIR$/transfusion/templates/transfusion/edit_link.html" />
       </list>
     </option>
   </component>
@@ -1100,14 +1098,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/transfusion/templates/transfusion/edit_link.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.791666">
-          <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/transfusion/templates/transfusion/add_link.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-18.125">
@@ -1118,8 +1108,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/transfusion/templates/transfusion/add_file.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.88757396">
-          <caret line="60" column="13" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
+        <state vertical-scroll-proportion="-2.5">
+          <caret line="4" column="53" selection-start-line="4" selection-start-column="53" selection-end-line="4" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/transfusion/templates/transfusion/edit_link.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.82642996">
+          <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
           <folding />
         </state>
       </provider>
