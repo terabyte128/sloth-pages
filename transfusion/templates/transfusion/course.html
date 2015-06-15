@@ -51,9 +51,9 @@
                             {% if links %}
                                 {% for link in links %}
                                     <div class="well">
-                                        <h4><a href="{{ link.address }}" target="_blank">{{ link.name }}</a></h4>
+                                        <h4>{{ link.name }} &nbsp;<small>{{ link.address }}</small></h4>
                                         <p>{{ link.description|safe }}</p>
-                                        <p><small><a href="{{ link.address }}" target="_blank">{{ link.address }}</a></small></p>
+                                        <a class="btn btn-success" href="{{ link.address }}" target="_blank">Open &nbsp;<span class="glyphicon glyphicon-new-window"></span></a>
                                     </div>
                                 {% endfor %}
                             {% else %}
@@ -65,9 +65,9 @@
                                 <h5 style="color: firebrick;"><span class="glyphicon glyphicon-alert"></span> Do not execute any files for which you do not trust the source!</h5>
                                 {% for file in files %}
                                     <div class="well">
-                                        <h4>{{ file.name }} <small>{{ file.filename }}</small></h4>
+                                        <h4>{{ file.name }} &nbsp;<small>{{ file.filename }}</small></h4>
                                         <p>{{ file.description|safe }}</p>
-                                        <button onclick="window.location='{% url 'transfusion:download_file' file_id=file.id %}';" class="btn btn-info">Download <span class="glyphicon glyphicon-download-alt"></span></button>
+                                        <button onclick="window.location='{% url 'transfusion:download_file' file_id=file.id %}';" class="btn btn-info">Download &nbsp;<span class="glyphicon glyphicon-download-alt"></span></button>
                                     </div>
                                 {% endfor %}
                             {% else %}

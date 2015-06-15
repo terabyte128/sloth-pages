@@ -40,6 +40,17 @@
                             {% if course.short_description %}
                                 <p>{{ course.short_description }}</p>
                             {% endif %}
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <a href="{% url 'transfusion:course' teacher=user.username course=course.id %}#assignments" style="width: 100%; margin-top: 2px; margin-bottom: 2px;" class="btn btn-sm btn-info"><strong>{{ course.assignment_set.count }}</strong> assignment{{ course.assignment_set.count|pluralize }}</a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="{% url 'transfusion:course' teacher=user.username course=course.id %}#links" style="width: 100%; margin-top: 2px; margin-bottom: 2px;" class="btn btn-sm btn-success"><strong>{{ course.link_set.count }}</strong> link{{ course.link_set.count|pluralize }}</a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="{% url 'transfusion:course' teacher=user.username course=course.id %}#files" style="width: 100%; margin-top: 2px; margin-bottom: 2px;" class="btn btn-sm btn-primary"><strong>{{ course.file_set.count }}</strong> file{{ course.file_set.count|pluralize }}</a>
+                                </div>
+                            </div>
                         </div>
                     {% endfor %}
                 </div>
