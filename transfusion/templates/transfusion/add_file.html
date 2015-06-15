@@ -53,8 +53,12 @@
     <script src="{% static 'transfusion/js/ckeditor.js' %}"></script>
 
     {% compress js %}
-           <script src="{% static 'transfusion/js/form_validation.js' %}"></script>
+        <script src="{% static 'transfusion/js/form_validation.js' %}"></script>
     {% endcompress %}
+
+    <script type="text/javascript">
+        CKEDITOR.replace('description');
+    </script>
 
     {% compress js inline %}
         <script type="text/javascript">
