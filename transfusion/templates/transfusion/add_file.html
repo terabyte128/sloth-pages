@@ -28,7 +28,7 @@
                         {% csrf_token %}
                         <div class="input-group">
                             <label for="name">Name</label>
-                            <input type="text" id="name" name="name" class="form-control" required="true">
+                            <input type="text" id="name" name="name" class="form-control" value="{{ autofill_name }}" required="true">
                         </div>
                         <br>
                         <div class="input-group">
@@ -38,7 +38,7 @@
                         <br>
                         <div class="input-group">
                             <label for="description">Description</label>
-                            <textarea name="description" id="description"></textarea>
+                            <textarea name="description" id="description">{{ autofill_description }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -55,10 +55,6 @@
     {% compress js %}
         <script src="{% static 'transfusion/js/form_validation.js' %}"></script>
     {% endcompress %}
-
-    <script type="text/javascript">
-        CKEDITOR.replace('description');
-    </script>
 
     {% compress js inline %}
         <script type="text/javascript">

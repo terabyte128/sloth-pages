@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django.db.models.query_utils import Q
 from django.db.utils import IntegrityError
 from django.http.response import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.utils.encoding import smart_str
@@ -533,8 +533,14 @@ def add_file(request, course_id):
         new_dest = os.path.join(full_path, file.name)
 
         if os.path.isfile(new_dest):
-            new_dest += 1
-            file.name += 1
+            messages.error(request,
+                           "This file already exists on the server. Please delete the old file, or rename the new one.")
+            context = {
+                'course': course,
+                'autofill_name': name,
+                'autofill_description': description
+            }
+            return render(request, 'transfusion/add_file.html', context)
 
         with open(new_dest, 'wb+') as destination:
             for chunk in file.chunks():
@@ -551,7 +557,7 @@ def add_file(request, course_id):
     else:
 
         context = {
-            'course': course
+            'course': course,
         }
         return render(request, 'transfusion/add_file.html', context)
 
