@@ -27,7 +27,7 @@ def search(request):
 
     term = request.GET.get('term')
 
-    if not term == "":
+    if (not term == "") and (term is not None):
         results = User.objects.filter(Q(username__icontains=term) | Q(last_name__icontains=term))
     else:
         results = None
@@ -126,7 +126,6 @@ def edit_course(request, course_id):
     assignments = course.assignment_set.order_by('-due_date')
     links = course.link_set.order_by('-id')
     files = course.file_set.order_by('-id')
-
 
     context = {
         'course': course,
