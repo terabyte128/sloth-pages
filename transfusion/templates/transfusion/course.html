@@ -34,6 +34,11 @@
                             {% else %}
                                 <p>{{ course.short_description }}</p>
                             {% endif %}
+                            <Br>
+                            <div class="input-group">
+                                <span class="input-group-addon btn-primary">Bookmark this page</span>
+                                <input type="text" onClick="this.select();" class="form-control" value="{{  request.build_absolute_uri }}" name="term">
+                            </div>
                         </div>
                         <div id="assignments" class="tab-pane fade">
                             {% if assignments %}
